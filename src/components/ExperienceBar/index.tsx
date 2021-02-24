@@ -6,7 +6,12 @@ const ExperienceBar = () => {
   return (
     <Header>
       <span>0 xp</span>
-      <ProgressBar />
+      <ProgressBar>
+        <div />
+        <span>
+          300 px
+        </span>
+      </ProgressBar>
       <span>600 xp</span>
     </Header>
   )

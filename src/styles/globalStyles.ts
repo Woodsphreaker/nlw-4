@@ -53,7 +53,8 @@ export default createGlobalStyle`
     --text: #666;
     --text-highlight: #b3b9ff;
     --title: #2e384d;
-    --red: #4cd62b;
+    --red: #e83f5b;
+    --green: #4cd62b;
     --blue: #5965e0;
     --blue-dark: #4953b8;
     --blue-twitter: #2aa9e0;
