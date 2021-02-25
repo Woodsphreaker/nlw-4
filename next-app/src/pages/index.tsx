@@ -1,8 +1,13 @@
-import Head from 'next/head'
-import Page from '../components/Home'
+import { Main } from 'next/document'
+import Container from '../components/Container'
+import ExperienceBar from '../components/ExperienceBar'
+import MainContent from '../components/MainContent'
 
-export default function Home() {
+export default function Index() {
   return (
-   <Page />
+  <Container>
+    <ExperienceBar />
+    <MainContent />
+  </Container>
   )
 }
