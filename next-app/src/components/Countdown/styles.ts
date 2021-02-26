@@ -43,6 +43,10 @@ export const Separator = styled.span`
  margin: 0 0.5rem;
 `
 
+interface ButtonProps {
+  isActive: Boolean
+}
+
 export const Button = styled.button.attrs({
   type: 'button'
 })`
@@ -54,15 +58,15 @@ export const Button = styled.button.attrs({
  justify-content: center;
  border: 0;
  border-radius: 5px;
- background: var(--blue);
- color: var(--white);
+ background: ${({isActive}: ButtonProps ) => isActive ? 'var(--white)' : 'var(--blue)'};
+ color: ${({isActive}: ButtonProps ) => isActive ? 'var(--title)' : 'var(--white)'};
  font-size: 1.25rem;
  font-weight: 600;
  outline: none;
-
  transition: background 0.5s;
 
  :hover {
-   background: var(--blue-dark);
+   background: ${({isActive}: ButtonProps ) => isActive ? 'var(--red)' : 'var(--blue-dark)'};
+   color: ${({isActive}: ButtonProps ) => isActive ? 'var(--white)' : 'var(--white)'};
  }
 `
