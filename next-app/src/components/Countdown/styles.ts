@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -47,26 +47,34 @@ interface ButtonProps {
   isActive: Boolean
 }
 
+const buttonStyles = css`
+  width: 100%;
+  height: 5rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  outline: none;
+  transition: background 0.5s;
+`
+
 export const Button = styled.button.attrs({
   type: 'button'
 })`
- width: 100%;
- height: 5rem;
- margin-top: 2rem;
- display: flex;
- align-items: center;
- justify-content: center;
- border: 0;
- border-radius: 5px;
+ ${buttonStyles}
  background: ${({isActive}: ButtonProps ) => isActive ? 'var(--white)' : 'var(--blue)'};
  color: ${({isActive}: ButtonProps ) => isActive ? 'var(--title)' : 'var(--white)'};
- font-size: 1.25rem;
- font-weight: 600;
- outline: none;
- transition: background 0.5s;
 
  :hover {
    background: ${({isActive}: ButtonProps ) => isActive ? 'var(--red)' : 'var(--blue-dark)'};
    color: ${({isActive}: ButtonProps ) => isActive ? 'var(--white)' : 'var(--white)'};
  }
+`
+
+export const FinishedButton = styled.button`
+  ${buttonStyles}
 `

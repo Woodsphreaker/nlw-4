@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Container, CountdownContainer, Counter, Separator, Button } from './styles';
+import React, {useState, useEffect} from "react";
+import { Container, CountdownContainer, Counter, Separator, Button, FinishedButton } from './styles';
 
 const splitTime = (time) => {
   return time.toString().padStart(2, '0').split('')
@@ -39,8 +39,13 @@ const Countdown: React.FC = () => {
     }
 
   }, [counterIsActive, time]);
-  
+
   const renderButtonByCounterStatus = () => {
+
+    if(hasFinish) {
+      return <FinishedButton>Finalizado</FinishedButton>
+    }
+
     if (counterIsActive) {
       return (
         <Button isActive={counterIsActive} onClick={resetCountdown}>
