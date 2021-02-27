@@ -1,10 +1,14 @@
 import GlobalStyles from '../../styles/globalStyles'
+import Context from '../context/ChallengeContext'
+
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <Context>
+        <Component {...pageProps} />
+      </Context>
     </>
   )
 }

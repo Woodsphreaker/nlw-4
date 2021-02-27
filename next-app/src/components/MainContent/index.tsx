@@ -2,6 +2,7 @@ import React from 'react';
 import CompleteChallenges from '../CompleteChallenges';
 import Countdown from '../Countdown';
 import Profile from '../Profile';
+import ChallengeBox from '../ChallengeBox'
 
 import { Container, Panel } from './styles';
 
@@ -14,7 +15,7 @@ const MainContent: React.FC = () => {
         <Countdown />
       </Panel>
       <Panel>
-        Right
+        <ChallengeBox />
       </Panel>
     </Container>
   )

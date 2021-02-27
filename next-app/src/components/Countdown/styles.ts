@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const CountdownContainer = styled.div`
   font-family: 'Rajdhani';
   font-weight: 600;
   color: var(--title);
-  
+
 `;
 
 export const Counter = styled.div`
@@ -65,7 +65,7 @@ const buttonStyles = css`
 export const Button = styled.button.attrs({
   type: 'button'
 })`
- ${buttonStyles}
+ ${buttonStyles};
  background: ${({isActive}: ButtonProps ) => isActive ? 'var(--white)' : 'var(--blue)'};
  color: ${({isActive}: ButtonProps ) => isActive ? 'var(--title)' : 'var(--white)'};
 
@@ -76,5 +76,8 @@ export const Button = styled.button.attrs({
 `
 
 export const FinishedButton = styled.button`
-  ${buttonStyles}
+  ${buttonStyles};
+  background: var(--white);
+  color: var(--text);
+  cursor: not-allowed
 `

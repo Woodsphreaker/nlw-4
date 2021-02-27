@@ -1,6 +1,9 @@
 import React from 'react';
+import { useChallenge } from '../../context/ChallengeContext';
 
 import { Header, ProgressBar } from './styles';
+
+
 
 const ExperienceBar = () => {
   return (
