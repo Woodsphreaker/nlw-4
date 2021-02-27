@@ -1,8 +1,9 @@
 import React from 'react';
-
+import { useChallenge } from '../../context/ChallengeContext';
 import { Container, InfoPanel } from './styles';
 
 const Profile: React.FC = () => {
+  const { level } = useChallenge()
   return (
     <Container>
       <img src="https://github.com/Woodsphreaker.png" alt="Woods"/>
@@ -10,8 +11,8 @@ const Profile: React.FC = () => {
         <strong>Carlo Enrico</strong>
         <p>
           <img src="icons/level.svg" alt="level"/>
-          Level 1
-        </p>   
+          Level {level}
+        </p>
       </InfoPanel>
     </Container>
   );

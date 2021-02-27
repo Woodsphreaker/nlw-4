@@ -8,15 +8,13 @@ const splitTime = (time) => {
 }
 
 const Countdown: React.FC = () => {
-  const [time, setTime] = useState(0.1 * 60)
+  const { startNewChallenge, challengeTimeCourse } = useChallenge()
+  const [time, setTime] = useState(challengeTimeCourse * 60)
   const [counterIsActive, setCounterActive] = useState(false)
   const [hasFinish, setHasFinish] = useState(false)
   const [counterID, setCounterID] = useState(null)
   const minutes = Math.floor(time / 60)
   const seconds = time % 60
-
-  // const {level, upLevel} = useChallenge()
-
   const [minuteLeft, minuteRight] = splitTime(minutes)
   const [secondLeft, secondRight] = splitTime(seconds)
 
@@ -26,7 +24,7 @@ const Countdown: React.FC = () => {
 
   const resetCountdown = () => {
     setCounterActive(false)
-    setTime(25 * 60)
+    setTime(challengeTimeCourse * 60)
     clearTimeout(counterID)
   }
 
@@ -36,11 +34,13 @@ const Countdown: React.FC = () => {
     }
 
     if (counterIsActive && time === 0) {
-      resetCountdown()
+      // resetCountdown()
       setHasFinish(true)
-      // setCounterActive(false)
-      return console.log('done')
+      setCounterActive(false)
+      return startNewChallenge()
     }
+
+    return null
 
   }, [counterIsActive, time]);
 

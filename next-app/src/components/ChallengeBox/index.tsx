@@ -1,4 +1,5 @@
 import React from "react"
+import { useChallenge } from "../../context/ChallengeContext";
 
 import {
   Container,
@@ -12,24 +13,38 @@ import {
 
 const ChallengeBox: React.FC = () => {
 
-  const hasActiveChallenge = true
+  const {
+    currentChallenge,
+    levelUp,
+    experienceUp,
+    resetChallenge
+  } = useChallenge()
+
+  const succeededChallenge = (xp:number) => {
+    experienceUp(xp)
+  }
+
+  const failedChallenge = () => {
+    resetChallenge()
+  }
 
   const renderBoxChallenge = () => {
 
-    if (hasActiveChallenge) {
+    if (currentChallenge) {
+      const {amount, description, type} = currentChallenge
       return (
         <BoxActiveContainer>
-          <header>Ganhe 400 xp</header>
+          <header>Ganhe {amount} xp</header>
 
           <Main>
-            <img src="icons/body.svg" alt=""/>
+            <img src={`icons/${type}.svg`} alt=""/>
             <strong>Novo desafio</strong>
-            <p>Levante e faça uma caminhada de 3 minutos.</p>
+            <p>{description}</p>
           </Main>
 
           <Footer>
-            <ButtonSucceeded>Completei</ButtonSucceeded>
-            <ButtonFailed>Falhei</ButtonFailed>
+            <ButtonSucceeded onClick={() => succeededChallenge(amount)}>Completei</ButtonSucceeded>
+            <ButtonFailed onClick={failedChallenge}>Falhei</ButtonFailed>
           </Footer>
         </BoxActiveContainer>
       )

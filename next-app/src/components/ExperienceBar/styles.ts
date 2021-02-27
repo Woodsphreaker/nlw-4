@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 
+interface ProgressBarProps {
+  experience: number
+}
+
 export const Header = styled.header`
   display: flex;
   align-items: center;
- 
+
   > span {
     font-size: 1rem;
   }
@@ -21,13 +25,13 @@ export const ProgressBar = styled.div`
   > div {
     height: 4px;
     border-radius: 4px;
-    width: 10%;
+    width: ${({experience}: ProgressBarProps) => `${experience}%`};
     background-color: var(--green);
   }
 
   > span {
     position: absolute;
-    left: 10%;
+    left: ${({experience}: ProgressBarProps) => `${experience}%`};
     top: 12px;
     transform: translateX(-50%)
   }
