@@ -2,47 +2,25 @@ import React, {useState, useEffect} from "react";
 import { Container, CountdownContainer, Counter, Separator, Button, FinishedButton } from './styles';
 
 import { useChallenge } from '../../context/ChallengeContext'
+import { useCountdown } from "../../context/CountdownContext";
 
 const splitTime = (time) => {
   return time.toString().padStart(2, '0').split('')
 }
 
 const Countdown: React.FC = () => {
-  const { startNewChallenge, challengeTimeCourse } = useChallenge()
-  const [time, setTime] = useState(challengeTimeCourse * 60)
-  const [counterIsActive, setCounterActive] = useState(false)
-  const [hasFinish, setHasFinish] = useState(false)
-  const [counterID, setCounterID] = useState(null)
-  const minutes = Math.floor(time / 60)
-  const seconds = time % 60
+
+  const {
+    minutes,
+    seconds,
+    hasFinish,
+    counterIsActive,
+    resetCountdown,
+    startCountdown
+  } = useCountdown()
+
   const [minuteLeft, minuteRight] = splitTime(minutes)
   const [secondLeft, secondRight] = splitTime(seconds)
-
-  const startCountdown = () => {
-    setCounterActive(true)
-  }
-
-  const resetCountdown = () => {
-    setCounterActive(false)
-    setTime(challengeTimeCourse * 60)
-    clearTimeout(counterID)
-  }
-
-  useEffect(() => {
-    if(counterIsActive && time > 0) {
-      return setCounterID(setTimeout(() => setTime((prevState) => prevState - 1) , 1000))
-    }
-
-    if (counterIsActive && time === 0) {
-      // resetCountdown()
-      setHasFinish(true)
-      setCounterActive(false)
-      return startNewChallenge()
-    }
-
-    return null
-
-  }, [counterIsActive, time]);
 
   const renderButtonByCounterStatus = () => {
 

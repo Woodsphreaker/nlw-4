@@ -20,7 +20,7 @@ interface ChallengeContextData {
   experienceToNextLevel: number
   levelUp: () => void
   startNewChallenge: () => void
-  experienceUp: (xp: number) => void
+  completeChallenge: () => void
   resetChallenge: () => void
 }
 
@@ -44,10 +44,6 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
     setLevel((prevLevel) => prevLevel + 1 )
   }
 
-  const experienceUp = (xp: number) => {
-    setCurrentExperience((previousXp) => previousXp + xp)
-  }
-
   const resetChallenge = () => {
     setCurrentChallenge(null)
   }
@@ -57,6 +53,40 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
     const randomChallenge = Math.floor(Math.random() * numberOfChallenges)
     const currentChallenge = challenges[randomChallenge]
     setCurrentChallenge(currentChallenge)
+  }
+
+  const getLevelCompleteStatus = (newExperienceValue) => {
+    const isLevelComplete = newExperienceValue >= experienceToNextLevel
+    return isLevelComplete
+  }
+
+  const calculateFinalExperience = (newExperienceValue) => {
+    const levelComplete = getLevelCompleteStatus(newExperienceValue)
+
+    if (levelComplete) {
+      return newExperienceValue - experienceToNextLevel
+    }
+
+    return newExperienceValue
+  }
+
+  const completeChallenge = () => {
+    if (!currentChallenge) {
+      return false
+    }
+
+    const { amount }  = currentChallenge
+    const newExperienceValue = currentExperience + amount
+    const isLevelComplete = getLevelCompleteStatus(newExperienceValue)
+    const finalExperience = calculateFinalExperience(newExperienceValue)
+
+    if (isLevelComplete) {
+      levelUp()
+    }
+
+    setCurrentChallenge(null)
+    setCurrentExperience(finalExperience)
+    setChallengesCompleted((prevChallengesCompleted) => challengesCompleted + 1)
   }
 
   return (
@@ -69,9 +99,9 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
         currentChallenge,
         experienceToNextLevel,
         levelUp,
-        experienceUp,
+        completeChallenge,
         startNewChallenge,
-        resetChallenge
+        resetChallenge,
      }
     }>
       {children}

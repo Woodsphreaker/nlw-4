@@ -1,5 +1,6 @@
 import React from "react"
 import { useChallenge } from "../../context/ChallengeContext";
+import { useCountdown } from "../../context/CountdownContext";
 
 import {
   Container,
@@ -15,17 +16,20 @@ const ChallengeBox: React.FC = () => {
 
   const {
     currentChallenge,
-    levelUp,
-    experienceUp,
+    completeChallenge,
     resetChallenge
   } = useChallenge()
 
-  const succeededChallenge = (xp:number) => {
-    experienceUp(xp)
+  const {resetCountdown} = useCountdown()
+
+  const succeededChallenge = () => {
+    completeChallenge()
+    resetCountdown()
   }
 
   const failedChallenge = () => {
     resetChallenge()
+    resetCountdown()
   }
 
   const renderBoxChallenge = () => {
@@ -43,7 +47,7 @@ const ChallengeBox: React.FC = () => {
           </Main>
 
           <Footer>
-            <ButtonSucceeded onClick={() => succeededChallenge(amount)}>Completei</ButtonSucceeded>
+            <ButtonSucceeded onClick={succeededChallenge}>Completei</ButtonSucceeded>
             <ButtonFailed onClick={failedChallenge}>Falhei</ButtonFailed>
           </Footer>
         </BoxActiveContainer>
