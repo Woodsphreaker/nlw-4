@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import challenges from '../../challenge.json'
 
 interface ChallengeProviderProps {
@@ -40,6 +40,10 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
   const challengeTimeCourse = 0.1
 
+  useEffect(() => {
+    Notification.requestPermission()
+  }, [])
+
   const levelUp = () => {
     setLevel((prevLevel) => prevLevel + 1 )
   }
@@ -53,6 +57,12 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
     const randomChallenge = Math.floor(Math.random() * numberOfChallenges)
     const currentChallenge = challenges[randomChallenge]
     setCurrentChallenge(currentChallenge)
+
+    if (Notification.permission === 'granted') {
+      new Notification('Novo desafio 🎉', {
+        body: `Complete o desafio e ganhe ${currentChallenge.amount}xp`
+      })
+    }
   }
 
   const getLevelCompleteStatus = (newExperienceValue) => {
