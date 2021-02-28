@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import Cookies from 'js-cookie'
 import challenges from '../../challenge.json'
 
 interface ChallengeProviderProps {
@@ -9,6 +10,12 @@ interface ChallengeData {
   type: string
   description: string
   amount: number
+}
+
+interface UserSavedData {
+  level: number
+  currentExperience: number
+  challengesCompleted: number
 }
 
 interface ChallengeContextData {
@@ -22,6 +29,7 @@ interface ChallengeContextData {
   startNewChallenge: () => void
   completeChallenge: () => void
   resetChallenge: () => void
+  loadUserSavedData: (data: UserSavedData) => void
 }
 
 const INITIAL_VALUES = {
@@ -44,6 +52,18 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
     Notification.requestPermission()
   }, [])
 
+  useEffect(() => {
+    Cookies.set('level', String(level))
+    Cookies.set('currentExperience', String(currentExperience))
+    Cookies.set('challengesCompleted', String(challengesCompleted))
+  }, [level, currentExperience, challengesCompleted])
+
+  const loadUserSavedData = (data : UserSavedData) => {
+    setLevel(data.level || 1)
+    setCurrentExperience(data.currentExperience || 0)
+    setChallengesCompleted(data.challengesCompleted || 0)
+  }
+
   const levelUp = () => {
     setLevel((prevLevel) => prevLevel + 1 )
   }
@@ -63,6 +83,8 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
         body: `Complete o desafio e ganhe ${currentChallenge.amount}xp`
       })
     }
+
+    new Audio('/notification.mp3').play()
   }
 
   const getLevelCompleteStatus = (newExperienceValue) => {
@@ -112,6 +134,7 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
         completeChallenge,
         startNewChallenge,
         resetChallenge,
+        loadUserSavedData
      }
     }>
       {children}
