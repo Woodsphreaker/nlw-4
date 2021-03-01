@@ -5,6 +5,7 @@ import Container from '../components/Container'
 import ExperienceBar from '../components/ExperienceBar'
 import MainContent from '../components/MainContent'
 import { useChallenge } from '../context/ChallengeContext'
+import withModal from '../components/Modal'
 
 interface UserSavedData {
   level: number
@@ -12,7 +13,7 @@ interface UserSavedData {
   challengesCompleted: number
 }
 
-export default function Index(props: UserSavedData) {
+const Index = (props: UserSavedData) => {
 
   const { loadUserSavedData } = useChallenge()
 
@@ -44,6 +45,8 @@ export default function Index(props: UserSavedData) {
   </Container>
   )
 }
+
+export default withModal(Index)
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookiesData = ctx.req.cookies

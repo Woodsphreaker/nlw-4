@@ -1,7 +1,6 @@
 import React from "react"
 import { useChallenge } from "../../context/ChallengeContext";
 import { useCountdown } from "../../context/CountdownContext";
-import withModal from '../Modal'
 
 import {
   Container,
@@ -73,4 +72,4 @@ const ChallengeBox: React.FC = () => {
   )
 }
 
-export default withModal(ChallengeBox);
+export default ChallengeBox;

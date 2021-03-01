@@ -40,6 +40,7 @@ const modalContainerAnimation = keyframes`
 
 export const Backdrop = styled.div`
   display: ${({modalActive}: ModalProps) => modalActive ? 'flex' : 'none'};
+  // display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
@@ -62,7 +63,8 @@ export const ModalContainer = styled.div`
  height: fit-content;
  min-height: 18rem;
  padding: 1rem;
- border-radius: 10px;
+ border-radius: 5px;
+ box-shadow: 0 0 60px rgba(0,0,0,0.05);
  transform: translateY(-1000px);
  animation: ${modalContainerAnimation} linear 0.3s forwards;
  animation-delay: 0.3s;
@@ -72,8 +74,8 @@ export const ModalHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--gray-line);
-  padding-bottom: 1rem;
+  /* border-bottom: 1px solid var(--gray-line);
+  padding-bottom: 1rem; */
 `
 
 export const Title = styled.div`
@@ -81,9 +83,7 @@ export const Title = styled.div`
   font-weight: 600;
 `
 
-export const CloseButton = styled.p`
-  font-size: 1.2rem;
-  font-weight: 600;
+export const CloseButton = styled.img`
   cursor: pointer;
 `
 
@@ -94,4 +94,26 @@ export const ModalBody = styled.div`
   align-items: center;
   margin-top: 1rem;
   flex: 1;
+
+  > header {
+    font-size: 8.75rem;
+    font-weight: 600;
+    color: var(--blue);
+    background: url('/icons/levelup.svg') no-repeat center;
+    background-size: contain;
+    width: 100%;
+    text-align: center;
+
+  }
+
+  strong {
+    font-size: 2.25rem;
+    color: var(--title);
+  }
+
+  > p {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin-top: 0.25rem;
+  }
 `

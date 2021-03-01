@@ -48,7 +48,7 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
   const [currentChallenge, setCurrentChallenge] = useState(null)
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
   const challengeTimeCourse = 0.1
-  const {setShowModal} = useModal()
+  const {setShowModal, setUserLevel} = useModal()
 
   useEffect(() => {
     Notification.requestPermission()
@@ -116,6 +116,7 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
 
     if (isLevelComplete) {
       levelUp()
+      setUserLevel(level + 1)
       setShowModal(true)
     }
 

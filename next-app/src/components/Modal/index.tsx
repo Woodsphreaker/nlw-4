@@ -4,7 +4,7 @@ import React, {
   ReactNode
 } from 'react';
 
-import {useModal} from '../../context/ModalContext'
+import { useModal } from '../../context/ModalContext'
 
 import {
   Backdrop,
@@ -15,10 +15,11 @@ import {
   ModalBody
 } from './styles';
 
-const Modal = (Component: ComponentType<any | string> ) => (props: any) => {
+const withModal = (Component: ComponentType<any | string> ) => (props: any) => {
 
   const {
     showModal,
+    userLevel,
     setShowModal
   } = useModal()
 
@@ -27,15 +28,16 @@ const Modal = (Component: ComponentType<any | string> ) => (props: any) => {
       <Backdrop modalActive={showModal}>
         <ModalContainer>
           <ModalHeader>
-            <Title>
-              Modal Title
-            </Title>
-            <CloseButton onClick={() => setShowModal(false)}>
-              X
-            </CloseButton>
+            <Title />
+            <CloseButton
+              src='/icons/close.svg'
+              onClick={() => setShowModal(false)}
+            />
           </ModalHeader>
           <ModalBody>
-            Contents
+            <header>{userLevel}</header>
+            <strong>Parabéns</strong>
+            <p>Você alcançou um novo level</p>
           </ModalBody>
         </ModalContainer>
       </Backdrop>
@@ -44,4 +46,4 @@ const Modal = (Component: ComponentType<any | string> ) => (props: any) => {
   );
 }
 
-export default Modal;
+export default withModal;
