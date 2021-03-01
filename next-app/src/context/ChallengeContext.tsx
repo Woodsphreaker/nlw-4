@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import Cookies from 'js-cookie'
 import challenges from '../../challenge.json'
+import { useModal } from "./ModalContext";
 
 interface ChallengeProviderProps {
   children: ReactNode
@@ -47,6 +48,7 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
   const [currentChallenge, setCurrentChallenge] = useState(null)
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
   const challengeTimeCourse = 0.1
+  const {setShowModal} = useModal()
 
   useEffect(() => {
     Notification.requestPermission()
@@ -114,6 +116,7 @@ const ChallengeProvider = ({children}: ChallengeProviderProps) => {
 
     if (isLevelComplete) {
       levelUp()
+      setShowModal(true)
     }
 
     setCurrentChallenge(null)
